@@ -54,14 +54,70 @@
 		6BF8AF81295DD6FA00E94739 /* RickAndMorty */ = {
 			isa = PBXGroup;
 			children = (
-				6BF8AF82295DD6FA00E94739 /* AppDelegate.swift */,
-				6BF8AF84295DD6FA00E94739 /* SceneDelegate.swift */,
-				6BF8AF86295DD6FA00E94739 /* ViewController.swift */,
-				6BF8AF8B295DD6FC00E94739 /* Assets.xcassets */,
-				6BF8AF8D295DD6FC00E94739 /* LaunchScreen.storyboard */,
+				6BF8AF9E295DE58300E94739 /* Resources */,
+				6BF8AF9D295DE52D00E94739 /* ApiClient */,
+				6BF8AF9C295DE49300E94739 /* Managers */,
+				6BF8AF9B295DE44100E94739 /* Views */,
+				6BF8AF99295DE3EC00E94739 /* ViewModels */,
+				6BF8AF98295DE3DF00E94739 /* Models */,
+				6BF8AF96295DE3C800E94739 /* Controllers */,
 				6BF8AF90295DD6FC00E94739 /* Info.plist */,
 			);
 			path = RickAndMorty;
+			sourceTree = "<group>";
+		};
+		6BF8AF96295DE3C800E94739 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6BF8AF86295DD6FA00E94739 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		6BF8AF98295DE3DF00E94739 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6BF8AF99295DE3EC00E94739 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		6BF8AF9B295DE44100E94739 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6BF8AF9C295DE49300E94739 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		6BF8AF9D295DE52D00E94739 /* ApiClient */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApiClient;
+			sourceTree = "<group>";
+		};
+		6BF8AF9E295DE58300E94739 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6BF8AF8B295DD6FC00E94739 /* Assets.xcassets */,
+				6BF8AF8D295DD6FC00E94739 /* LaunchScreen.storyboard */,
+				6BF8AF82295DD6FA00E94739 /* AppDelegate.swift */,
+				6BF8AF84295DD6FA00E94739 /* SceneDelegate.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
