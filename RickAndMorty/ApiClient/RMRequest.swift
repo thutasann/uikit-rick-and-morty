@@ -56,9 +56,8 @@ final class RMRequest {
     /// Desired HTTP Method
     public let httpMethod = "GET";
     
-    // MARK: - Initialization
     
-    /// Construct Request
+    /// CONSTRUCT REQUETS (Initialization)
     /// - Parameters:
     ///   - endpoint: Target Endpoint
     ///   - pathComponents: Collection of Path Components

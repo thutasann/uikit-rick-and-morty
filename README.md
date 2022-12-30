@@ -1,9 +1,14 @@
-# uikit-rick-and-morty
+#  UIKit Rick and Morty App
 
-This app is programmed with UIKit and MVVM Architecture.
+This app is developed with Swift UIKit and MVVM Architecture.
 
-## Highlights
+![Rick and Mory](media/rm.gif)
 
-- Written in Swift
-- Unit Tested
-- Well-structured Folders
+API - [https://rickandmortyapi.com/]( https://rickandmortyapi.com/)
+
+---
+## 🚀 Highlights
+
+- ✍️ Written in Swift
+- ✍️ Unit Tested
+- ✍️ Well-structured Folders
