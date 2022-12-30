@@ -6,7 +6,6 @@ This app is developed with Swift UIKit and MVVM Architecture.
 
 API - [https://rickandmortyapi.com/]( https://rickandmortyapi.com/)
 
----
 ## 🚀 Highlights
 
 - ✍️ Written in Swift
