@@ -21,9 +21,18 @@ final class RMService{
     
     /// Private Constructor
     private init() {}
+    
+    // MARK: URL Request
+    private func request(from rmRequest: RMRequest) -> URLRequest? {
+        guard let url = rmRequest.url else { return nil }
+        var request = URLRequest(url: url);
+        request.httpMethod = rmRequest.httpMethod;
+        return request;
+    }
 
     /// Send Rick and Morty API Call
     /// - parameters:
+    /// - request: RMRequest
     /// - type : The type of object we expect to get back
     /// - completion : Callback with Data or Error
     public func execute<T: Codable>(
@@ -31,7 +40,7 @@ final class RMService{
         expecting type: T.Type,
         completion: @escaping(Result<T, Error>)-> Void
     ){
-        // urlRequest
+       
         guard let urlRequest = self.request(from: request) else{
             completion(.failure(RMServiceError.failedToCreateRequest))
             return
@@ -55,12 +64,6 @@ final class RMService{
     }
     
     
-    // MARK: Private
-    private func request(from rmRequest: RMRequest) -> URLRequest? {
-        guard let url = rmRequest.url else { return nil }
-        var request = URLRequest(url: url);
-        request.httpMethod = rmRequest.httpMethod;
-        return request;
-    }
+    
     
 }
