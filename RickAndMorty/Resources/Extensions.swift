@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView{
     
-    // MARK: - Add Sub View Custom Extensions
+    // MARK: - Add Sub Views Custom Extensions
     func addSubviews(_ views: UIView...){
         views.forEach({
             addSubview($0)

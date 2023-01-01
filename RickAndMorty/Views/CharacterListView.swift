@@ -7,8 +7,17 @@
 
 import UIKit
 
+protocol CharacterListViewDelegate : AnyObject {
+    func characterListView(
+        _ characterListView : CharacterListView,
+        didSelectCharacter character : RMCharacter
+    )
+}
+
 /// Character List View that handles Characters, Spinner, etc.
 final class CharacterListView: UIView {
+    
+    public weak var delegate: CharacterListViewDelegate?
 
     private let viewModel = CharactersListViewViewModel();
     
@@ -24,7 +33,7 @@ final class CharacterListView: UIView {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout();
         layout.scrollDirection = .vertical;
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isHidden = true;
         collectionView.alpha = 0;
@@ -74,8 +83,14 @@ final class CharacterListView: UIView {
 
 extension CharacterListView : CharactersListViewViewModelDelegate{
     
+    // Did Select Character
+    func didSelectCharacter(_ character: RMCharacter) {
+        delegate?.characterListView(self, didSelectCharacter: character)
+    }
+    
+
+    // DID load Initial Characters
     func didLoadInitialCharacters() {
-        
         spinner.stopAnimating()
         collectionView.isHidden = false;
         collectionView.reloadData(); // Initial Fetch Data;

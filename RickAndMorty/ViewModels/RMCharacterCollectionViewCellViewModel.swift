@@ -31,7 +31,7 @@ final class RMCharacterCollectionViewCellViewModel {
     
     // MARK: Fetch Image Func
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void){
-        // TODO: Abstract to Imag Manager
+        // TODO: Abstract to Image Manager
         
         guard let url = characterImageUrl else {
             completion(.failure(URLError(.badURL)));
