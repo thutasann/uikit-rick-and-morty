@@ -74,7 +74,7 @@ final class CharactersListViewViewModel : NSObject {
     
 }
 
-// MARK: RMCharacter List View ViewModel
+// MARK: - RMCharacter List View ViewModel
 extension CharactersListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
    
@@ -94,6 +94,28 @@ extension CharactersListViewViewModel: UICollectionViewDataSource, UICollectionV
         
     }
     
+    // MARK: View For SupplementaryElementOfKind (For Footer Loading Collection Resusable View)
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        guard kind == UICollectionView.elementKindSectionFooter else {
+            return UICollectionReusableView();
+        }
+        
+        let footer = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier,
+            for: indexPath
+        );
+        
+        return footer;
+    }
+    
+    // MARK: Reference Size For Footer In Section
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 100)
+    }
+    
+    
     // MARK: Size For Item At (Grid columns)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds;
@@ -104,7 +126,7 @@ extension CharactersListViewViewModel: UICollectionViewDataSource, UICollectionV
         )
     }
     
-    // Did Select Item At
+    // MARK: Did Select Item At
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let character = characters[indexPath.row]
@@ -113,7 +135,7 @@ extension CharactersListViewViewModel: UICollectionViewDataSource, UICollectionV
     
 }
 
-// MARK: RMCharacter List View ScrollView
+// MARK: - RMCharacter List View ScrollView (FOR Pagination)
 extension CharactersListViewViewModel: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
