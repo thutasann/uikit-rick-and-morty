@@ -26,7 +26,7 @@ final class RMCharacterCollectionViewCellViewModel {
     }
     
     public var characterStatusText : String {
-        return characterStatus.rawValue;
+        return "Status: \(characterStatus.text)"
     }
     
     // MARK: Fetch Image Func

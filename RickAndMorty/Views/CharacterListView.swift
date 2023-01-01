@@ -40,6 +40,7 @@ final class CharacterListView: UIView {
         addSubviews(collectionView ,spinner)
         addConstraints()
         spinner.startAnimating();
+        viewModel.delegate = self;
         viewModel.fetchCharacters();
         setupCollectionView();
     }
@@ -66,16 +67,20 @@ final class CharacterListView: UIView {
     // MARK: Set Up Collection View
     private func setupCollectionView(){
         collectionView.dataSource = viewModel
-        collectionView.delegate = viewModel
+        collectionView.delegate = viewModel;
+    }
+}
+
+
+extension CharacterListView : CharactersListViewViewModelDelegate{
+    
+    func didLoadInitialCharacters() {
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
-            self.spinner.stopAnimating();
-            self.collectionView.isHidden = false;
-            
-            UIView.animate(withDuration: 0.4){
-                self.collectionView.alpha = 1;
-            }
-        })
-        
+        spinner.stopAnimating()
+        collectionView.isHidden = false;
+        collectionView.reloadData(); // Initial Fetch Data;
+        UIView.animate(withDuration: 0.4){
+            self.collectionView.alpha = 1;
+        }
     }
 }
