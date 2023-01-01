@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// View Model For Character List View
 final class CharactersListViewViewModel : NSObject {
     
     // MARK: Fetch Characters
@@ -17,6 +18,7 @@ final class CharactersListViewViewModel : NSObject {
             case .success(let model):
                 print("Total ", String(model.info.count))
                 print("Page Result Count", String(model.results.count))
+                print("Image", String(model.results.first?.image ?? "NO Image"))
             case .failure(let error):
                 print(String(describing: error))
             }
@@ -36,12 +38,20 @@ extension CharactersListViewViewModel: UICollectionViewDataSource, UICollectionV
     
     // MARK: Cell For Item At
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .systemGreen;
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier, for: indexPath) as? RMCharacterCollectionViewCell else{
+            fatalError("Unsupported cell")
+        }
+        
+        let viewModel = RMCharacterCollectionViewCellViewModel(
+                        characterName: "Afraz",
+                        characterStatus: .alive,
+                        characterImageUrl: URL(string: "https://rickandmortyapi.com/api/character/avatar/1.jpeg")
+        );
+        cell.configure(with: viewModel)
         return cell;
     }
     
-    // MARK: Size For Item At
+    // MARK: Size For Item At (Grid columns)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds;
         let width = (bounds.width-30)/2
