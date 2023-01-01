@@ -1,6 +1,7 @@
 #  UIKit Rick and Morty App
 
-This app is developed with Swift UIKit and MVVM Architecture.
+This app is developed with Swift UIKit and MVVM Architecture and mainly focused
+on `UICollectionView`.
 
 ![Rick and Mory](media/rm.gif)
 
