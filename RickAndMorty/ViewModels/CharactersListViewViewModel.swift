@@ -10,6 +10,7 @@ import UIKit
 
 protocol CharactersListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
+    func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
     func didSelectCharacter(_ character: RMCharacter)
 }
 
@@ -25,7 +26,7 @@ final class CharactersListViewViewModel : NSObject {
     // Character Collection ViewCell ViewModel
     private var cellViewModels : [RMCharacterCollectionViewCellViewModel] = [];
     
-    // API Info
+    // API Response Info
     private var apiInfo : RMGetAllCharactersResponse.Info? = nil;
     
     // Characters
@@ -43,7 +44,6 @@ final class CharactersListViewViewModel : NSObject {
     };
     
    
-    
     // MARK: FETCH CHARACTERS FUNCTION (20)
     public func fetchCharacters() {
         RMService.shared.execute(
@@ -65,11 +65,45 @@ final class CharactersListViewViewModel : NSObject {
         }
     }
     
-    // MARK: Paginate Characters
-    public func fetchAdditionalCharacters() {
+    // MARK: PAGINATE MORE CHARACTERS
+    public func fetchAdditionalCharacters(url: URL) {
+        guard !isLoadingMoreCharacters else {
+            return
+        }
         isLoadingMoreCharacters = true;
-        // Fetch Characters
-        
+        guard let request = RMRequest(url: url) else{
+            isLoadingMoreCharacters = false;
+            print("Failed to create request")
+            return;
+        }
+        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
+            guard let strongSelf = self else{
+                return
+            }
+            switch result{
+            case .success(let responseModel):
+                let moreResults = responseModel.results;
+                let info = responseModel.info;
+                strongSelf.apiInfo = info;
+                
+                let originalCount = strongSelf.characters.count; // 20
+                let newCount = moreResults.count; // 20
+                let total = originalCount+newCount; // 20 + 20
+                let startingIndex = total - newCount;
+                let indexPathsToAdd : [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
+                    return IndexPath(row: $0, section: 0)
+                })
+                
+                strongSelf.characters.append(contentsOf: moreResults);
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
+                    strongSelf.isLoadingMoreCharacters = false;
+                }
+            case .failure(let failure):
+                print(String(describing: failure))
+                self?.isLoadingMoreCharacters = false;
+            }
+        }
     }
     
     // MARK: Should Show Load More Indicator
@@ -150,17 +184,26 @@ extension CharactersListViewViewModel: UIScrollViewDelegate{
     // Scroll View Did Scroll
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharacters else{
+        guard shouldShowLoadMoreIndicator,
+              !isLoadingMoreCharacters,
+              !cellViewModels.isEmpty,
+              let nextUrlString = apiInfo?.next,
+              let url = URL(string: nextUrlString) else{
             return
         }
         
-        let offset = scrollView.contentOffset.y;
-        let totalContentHeight = scrollView.contentSize.height;
-        let totalScrollViewFixedHeight = scrollView.frame.size.height;
-        
-        if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120){
-            print("Should start Fetching More...")
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in // Timer
+            let offset = scrollView.contentOffset.y;
+            let totalContentHeight = scrollView.contentSize.height;
+            let totalScrollViewFixedHeight = scrollView.frame.size.height;
+            
+            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120){
+                print("Should start Fetching More...")
+                self?.fetchAdditionalCharacters(url: url)
+            }
+            t.invalidate()
         }
+        
         
     }
     

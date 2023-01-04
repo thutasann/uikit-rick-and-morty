@@ -39,7 +39,7 @@ final class CharacterListView: UIView {
         collectionView.alpha = 0;
         collectionView.translatesAutoresizingMaskIntoConstraints = false;
         collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier)
-        collectionView.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier)
+        collectionView.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier) // Pagination Indicator
         return collectionView;
     }();
     
@@ -82,6 +82,7 @@ final class CharacterListView: UIView {
 }
 
 
+// MARK: - Character List View ViewModel Delegate
 extension CharacterListView : CharactersListViewViewModelDelegate{
     
     // Did Select Character
@@ -97,6 +98,13 @@ extension CharacterListView : CharactersListViewViewModelDelegate{
         collectionView.reloadData(); // Initial Fetch Data;
         UIView.animate(withDuration: 0.4){
             self.collectionView.alpha = 1;
+        }
+    }
+    
+    // Did Load More Characters (Patinate More Characters)
+    func didLoadMoreCharacters(with newIndexPaths: [IndexPath]) {
+        collectionView.performBatchUpdates {
+            self.collectionView.insertItems(at: newIndexPaths)
         }
     }
 }
