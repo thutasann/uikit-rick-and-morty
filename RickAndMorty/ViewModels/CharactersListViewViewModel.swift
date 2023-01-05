@@ -32,13 +32,15 @@ final class CharactersListViewViewModel : NSObject {
     // Characters
     private var characters : [RMCharacter] = []{
         didSet{
-            for character in characters{
+            for character in characters {
                 let viewModel = RMCharacterCollectionViewCellViewModel(
                     characterName: character.name,
                     characterStatus: character.status,
                     characterImageUrl: URL(string: character.image)
                 );
-                cellViewModels.append(viewModel);
+                if !cellViewModels.contains(viewModel){ // To Prevent Duplication in paginated Characters
+                    cellViewModels.append(viewModel);
+                }
             }
         }
     };
@@ -82,6 +84,9 @@ final class CharactersListViewViewModel : NSObject {
             }
             switch result{
             case .success(let responseModel):
+                
+                print("Pre-update : \(strongSelf.cellViewModels.count)") // 20
+                
                 let moreResults = responseModel.results;
                 let info = responseModel.info;
                 strongSelf.apiInfo = info;
@@ -97,8 +102,10 @@ final class CharactersListViewViewModel : NSObject {
                 strongSelf.characters.append(contentsOf: moreResults);
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
+                    print("Post-update : \(strongSelf.cellViewModels.count)") //  20 + 20 -> 40
                     strongSelf.isLoadingMoreCharacters = false;
                 }
+                
             case .failure(let failure):
                 print(String(describing: failure))
                 self?.isLoadingMoreCharacters = false;
