@@ -14,19 +14,7 @@ final class RMCharacterCollectionViewCellViewModel : Hashable, Equatable {
     private let characterStatus : RMCharacterStatus
     private let characterImageUrl : URL?
     
-    // MARK: Hash
-    
-    static func == (lhs: RMCharacterCollectionViewCellViewModel, rhs: RMCharacterCollectionViewCellViewModel) -> Bool {
-        return lhs.hashValue == rhs.hashValue
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(characterName)
-        hasher.combine(characterStatus)
-        hasher.combine(characterImageUrl)
-    }
-    
-    // MARK: Init
+    // MARK: - Init
     init(
         characterName : String,
         characterStatus: RMCharacterStatus,
@@ -41,25 +29,23 @@ final class RMCharacterCollectionViewCellViewModel : Hashable, Equatable {
         return "Status: \(characterStatus.text)"
     }
     
-    // MARK: Fetch Image Func
+    // MARK: - Fetch Image Function
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void){
-        // TODO: Abstract to Image Manager
-        
         guard let url = characterImageUrl else {
             completion(.failure(URLError(.badURL)));
             return
         }
-        let request = URLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(URLError(.badServerResponse)));
-                return;
-            }
-            completion(.success(data))
-        }
-        
-        task.resume();
-        
+        RMImageLoader.shared.downloadImage(url, completion: completion);
+    }
+    
+    // MARK: - Hashable
+    static func == (lhs: RMCharacterCollectionViewCellViewModel, rhs: RMCharacterCollectionViewCellViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(characterName)
+        hasher.combine(characterStatus)
+        hasher.combine(characterImageUrl)
     }
 }

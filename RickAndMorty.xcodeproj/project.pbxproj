@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6BDCCCD6296676490085BA43 /* RMImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDCCCD5296676480085BA43 /* RMImageLoader.swift */; };
 		6BF8AF83295DD6FA00E94739 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8AF82295DD6FA00E94739 /* AppDelegate.swift */; };
 		6BF8AF85295DD6FA00E94739 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8AF84295DD6FA00E94739 /* SceneDelegate.swift */; };
 		6BF8AF87295DD6FA00E94739 /* RMTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8AF86295DD6FA00E94739 /* RMTabViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6BDCCCD5296676480085BA43 /* RMImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMImageLoader.swift; sourceTree = "<group>"; };
 		6BF8AF7F295DD6FA00E94739 /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BF8AF82295DD6FA00E94739 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BF8AF84295DD6FA00E94739 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		6BF8AF9C295DE49300E94739 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				6BDCCCD5296676480085BA43 /* RMImageLoader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				6BF8AFC7295FB24B00E94739 /* RMCharacterCollectionViewCell.swift in Sources */,
 				6BF8AFAD295DE86F00E94739 /* RMSettingViewController.swift in Sources */,
 				6BF8AF83295DD6FA00E94739 /* AppDelegate.swift in Sources */,
+				6BDCCCD6296676490085BA43 /* RMImageLoader.swift in Sources */,
 				6BF8AFA0295DE6CD00E94739 /* RMLocation.swift in Sources */,
 				6BF8AFAF295E014E00E94739 /* RMService.swift in Sources */,
 				6BF8AFC5295F189B00E94739 /* Extensions.swift in Sources */,
