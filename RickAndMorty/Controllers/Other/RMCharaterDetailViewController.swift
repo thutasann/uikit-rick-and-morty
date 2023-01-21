@@ -29,9 +29,14 @@ final class RMCharaterDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = viewModel.title;
         view.addSubviews(detailView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .action,
+            target: self,
+            action: #selector(didTapShare)
+        )
         addConstraints();
     }
+
     
     // MARK: Did Tap Share
     @objc func didTapShare(){
