@@ -120,7 +120,7 @@ final class CharactersListViewViewModel : NSObject {
     
 }
 
-// MARK: - RMCharacter List View ViewModel
+// MARK: - RMCharacter List View ViewModel Extension
 extension CharactersListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
    

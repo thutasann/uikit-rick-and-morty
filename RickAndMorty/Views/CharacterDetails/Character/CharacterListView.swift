@@ -38,8 +38,8 @@ final class CharacterListView: UIView {
         collectionView.isHidden = true;
         collectionView.alpha = 0;
         collectionView.translatesAutoresizingMaskIntoConstraints = false;
-        collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier)
-        collectionView.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier) // Pagination Indicator
+        collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier) // Register with CharacterCollectionViewCell
+        collectionView.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier) // Register with Pagination Indicator
         return collectionView;
     }();
     

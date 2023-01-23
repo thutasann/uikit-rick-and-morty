@@ -16,8 +16,6 @@ final class RMImageLoader {
     // MARK: Init
     private init(){}
     
-
-    
     /// Get Image Content with URL
     /// - Parameters:
     ///   - url: Source URL
@@ -25,6 +23,7 @@ final class RMImageLoader {
     public func downloadImage(_ url : URL, completion: @escaping(Result<Data, Error>) -> Void){
         
         let key = url.absoluteString as NSString;
+        
         if let data = imageDataCache.object(forKey: key){
             print("Reading From Cache \(key)")
             completion(.success(data as Data)) // NSData == Data | NSString == String

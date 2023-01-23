@@ -38,6 +38,7 @@ final class RMCharacterViewController: UIViewController, CharacterListViewDelega
         let detailVC = RMCharaterDetailViewController(viewModel: viewModel);
         detailVC.navigationItem.largeTitleDisplayMode = .never;
         navigationController?.pushViewController(detailVC, animated: true);
+        
     }
 
 }
