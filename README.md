@@ -12,3 +12,5 @@ API - [https://rickandmortyapi.com/]( https://rickandmortyapi.com/)
 - ✍️ Written in Swift
 - ✍️ Unit Tested
 - ✍️ Well-structured Folders
+- ✍️ Infinity Scroll
+- ✍️ Image Loader with Cache Management
