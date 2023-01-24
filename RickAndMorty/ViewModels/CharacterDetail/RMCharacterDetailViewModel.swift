@@ -14,7 +14,7 @@ final class RMCharacterDetailViewViewModel {
     private let character : RMCharacter
     
 
-    // MARK: Section Type Enum (Photo, Info, Episodes)
+    // MARK: Section Type Enum (Photo, Info, Episodes) (Associated Type)
     enum SectionType{
         case photo(viewModel: RMCharacterPhotoCollectionViewCellViewModel)
         case information(viewModels: [RMCharacterInfoCollectionViewCellViewModel])
@@ -33,20 +33,21 @@ final class RMCharacterDetailViewViewModel {
     // MARK: SETUP SECITONS
     private func setUpSections(){
         sections = [
-            .photo(viewModel: .init()),
+            .photo(viewModel: .init(imageUrl: URL(string: character.image))),
             .information(viewModels: [
-                .init(),
-                .init(),
-                .init(),
-                .init(),
+                .init(value: character.status.rawValue, title: "Status"),
+                .init(value: character.gender.rawValue, title: "Gender"),
+                .init(value: character.type, title: "Type"),
+                .init(value: character.species, title: "Species"),
+                .init(value: character.origin.name, title: "Origin"),
+                .init(value: character.location.name, title: "Location"),
+                .init(value: character.created, title: "Created"),
+                .init(value: "\(character.episode.count)", title: "Total Episodes")
             ]),
-            .episodes(viewModels: [
-                .init(),
-                .init(),
-                .init(),
-                .init()
-            ])
-        ]
+            .episodes(viewModels: character.episode.compactMap({
+                return RMCharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))
+            }))
+        ];
     }
     
 
@@ -66,7 +67,7 @@ final class RMCharacterDetailViewViewModel {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalHeight(0.5)
+                heightDimension: .fractionalHeight(1.0)
             )
         )
         item.contentInsets = NSDirectionalEdgeInsets(
