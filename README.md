@@ -10,6 +10,7 @@ API - [https://rickandmortyapi.com/]( https://rickandmortyapi.com/)
 ## 🚀 Highlights
 
 - ✍️ Written in Swift
+- ✍️ MVVM Architecture
 - ✍️ Unit Tested
 - ✍️ Well-structured Folders
 - ✍️ Infinity Scroll
