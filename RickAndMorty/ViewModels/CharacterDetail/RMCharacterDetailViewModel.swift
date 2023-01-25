@@ -11,7 +11,12 @@ import UIKit
 final class RMCharacterDetailViewViewModel {
     
     // MARK: Variables
-    private let character : RMCharacter
+    private let character : RMCharacter;
+    
+    // MARK: Episodes
+    public var episodes: [String]{
+        character.episode
+    }
     
 
     // MARK: Section Type Enum (Photo, Info, Episodes) (Associated Type)
