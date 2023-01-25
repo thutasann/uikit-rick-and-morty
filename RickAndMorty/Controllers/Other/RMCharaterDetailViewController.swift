@@ -114,7 +114,8 @@ extension RMCharaterDetailViewController : UICollectionViewDelegate, UICollectio
             ) as? RMCharacterEpisodesCollectionViewCell else{
                 fatalError()
             }
-            cell.configure(with: viewModels[indexPath.row])
+            let viewModel = viewModels[indexPath.row];
+            cell.configure(with: viewModel)
             return cell;
         }
         

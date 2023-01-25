@@ -14,7 +14,9 @@ final class RMCharacterEpisodesCollectionViewCell: UICollectionViewCell {
     
     // MARK: Initialization
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: frame);
+        contentView.backgroundColor = .systemBlue;
+        contentView.layer.cornerRadius = 8;
     }
     required init?(coder: NSCoder) {
         fatalError("Not supported");
@@ -32,8 +34,12 @@ final class RMCharacterEpisodesCollectionViewCell: UICollectionViewCell {
     
     // MARK: CONFIGURE THE COLLECTION VIEW CELL
     public func configure(with viewModel: RMCharacterEpisodesCollectionViewCellViewModel){
-        
+        viewModel.registerForData { data in
+            print(String(describing: data))
+        }
+        viewModel.fetchEpisodes();
     }
+    
     
 }
  
