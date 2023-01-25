@@ -15,3 +15,4 @@ API - [https://rickandmortyapi.com/]( https://rickandmortyapi.com/)
 - ✍️ Well-structured Folders
 - ✍️ Infinity Scroll
 - ✍️ Image Loader with Cache Management
+- ✍️ Powerful API Cache management
