@@ -7,23 +7,37 @@
 
 import UIKit
 
-final class RMEpisodeViewController: UIViewController {
+final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate {
+    
+    private let episodeListView = RMEpisodeListView();
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground;
-        title = "Episodes"
+        title = "Episodes";
+        setupView();
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: Setup View
+    private func setupView(){
+        episodeListView.delegate = self;
+        view.addSubview(episodeListView);
+        NSLayoutConstraint.activate([
+            episodeListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            episodeListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            episodeListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            episodeListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ]);
     }
-    */
+    
+    // MARK: Delegate Function
+    func rmEpisodeListView(_ episodeListView: RMEpisodeListView, didSelectEpisode episode: RMEpisode) {
+        // Open Detail Controller for that Episode
+        let detailVC = RMEpisodeDetailViewController(url: URL(string: episode.url));
+        detailVC.navigationItem.largeTitleDisplayMode = .never;
+        navigationController?.pushViewController(detailVC, animated: true);
+    }
+    
+    
 
 }

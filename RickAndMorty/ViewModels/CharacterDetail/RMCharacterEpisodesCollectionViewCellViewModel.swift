@@ -66,5 +66,6 @@ final class RMCharacterEpisodesCollectionViewCellViewModel {
                 print(String(describing: failure));
             }
         }
+        
     }
 }
