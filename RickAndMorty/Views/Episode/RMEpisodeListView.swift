@@ -18,7 +18,7 @@ protocol RMEpisodeListViewDelegate: AnyObject{
 final class RMEpisodeListView: UIView{
     
     public weak var delegate: RMEpisodeListViewDelegate?;
-    private let viewModel = CharactersListViewViewModel();
+    private let viewModel = RMEpisodeListViewViewModel();
     
     // MARK: Spinner
     private let spinner: UIActivityIndicatorView = {
@@ -37,8 +37,9 @@ final class RMEpisodeListView: UIView{
         collectionView.isHidden = true;
         collectionView.alpha = 0;
         collectionView.translatesAutoresizingMaskIntoConstraints = false;
-        collectionView.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier);
-        return collectionView;
+        collectionView.register(RMCharacterEpisodesCollectionViewCell.self , forCellWithReuseIdentifier: RMCharacterEpisodesCollectionViewCell.cellIdentifier);
+        collectionView.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier) // Register with Pagination Indicator
+            return collectionView;
     }();
     
     // MARK: Initialization
@@ -48,6 +49,8 @@ final class RMEpisodeListView: UIView{
         addSubviews(collectionView, spinner);
         addConstraints();
         spinner.startAnimating();
+        viewModel.delegate = self;
+        viewModel.fetchEpisodes();
         setupCollectionView();
     }
     required init?(coder: NSCoder){
@@ -77,4 +80,29 @@ final class RMEpisodeListView: UIView{
     
 }
 
-// MARK: Episode List View VieMode
+// MARK: Episode List View VieModel Delegate
+extension RMEpisodeListView : RMEpisodeListViewViewModelDelegate{
+    
+    // Did Select Episode
+    func didSelectEpisode(_ episode: RMEpisode) {
+        delegate?.rmEpisodeListView(self, didSelectEpisode: episode)
+    }
+    
+    // Did Load Initial Episodes
+    func didLoadInitialEpisodes() {
+        spinner.stopAnimating();
+        collectionView.isHidden = false;
+        collectionView.reloadData(); // Initial Fetch Data
+        UIView.animate(withDuration: 0.4) {
+            self.collectionView.alpha = 1;
+        }
+    }
+    
+    // Did Load More Characters
+    func didLoadMoreEpisodes(with newIndexPaths: [IndexPath]) {
+        collectionView.performBatchUpdates {
+            self.collectionView.insertItems(at: newIndexPaths);
+        }
+    }
+    
+}
